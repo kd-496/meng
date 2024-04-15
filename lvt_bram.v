@@ -25,7 +25,7 @@ LiveValueTable L1 (
     .write_enable_1(wr1_en),
     .read_addr(rd0_addr),
     .read_enable(rd0_en),
-    .data_out(lvt_out)
+    .lvt_out(lvt_out)
 );
 
 // Instantiating BRAM modules
