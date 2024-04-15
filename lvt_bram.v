@@ -2,7 +2,7 @@ module lvt_bram (
     input wire [6:0] wr0_addr, wr1_addr,
     input wire [4:0] wr0_data, wr1_data,
     input wire [6:0] rd0_addr,
-    output wire [4:0] rd0_data,
+    output wire [6:0] rd0_data,
     input wire clk,
     input wire rst, // Reset input
     input wire wr0_en,
