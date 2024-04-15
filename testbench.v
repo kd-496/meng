@@ -1,7 +1,6 @@
+module lvt_testbench();
 
-module tb_lvt_bram();
-
-    // Parameters
+// Parameters
     parameter CLK_PERIOD = 10; // Clock period in time units
     
     // Signals
@@ -149,5 +148,4 @@ module tb_lvt_bram();
         #10;
         $finish;
     end
-    
-endmodule
+
