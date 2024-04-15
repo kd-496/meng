@@ -1,4 +1,3 @@
-
 module lvt_bram (
     input wire wr0_addr, wr1_addr,
     input wire wr0_data, wr1_data,
@@ -53,12 +52,12 @@ module LiveValueTable (
 parameter ADDR_WIDTH = 7; // Adjust this according to your memory address width
 
 reg [1:0] lvt_memory [0:(2**ADDR_WIDTH)-1];
-
+integer i;
 // Sequential block for LVT memory updates
 always @(posedge clk or posedge rst) begin
     if (rst) begin
         // Reset LVT memory to 0
-        for (int i = 0; i < (2**ADDR_WIDTH); i = i + 1) begin
+        for (i=0; i < (2**ADDR_WIDTH); i = i + 1) begin
             lvt_memory[i] <= 2'b00;
         end
     end else begin
@@ -96,14 +95,14 @@ module BRAM (
 
 // Internal memory
 reg [6:0] ram [0:127];
-
+integer i;
 // Sequential block for BRAM operations
 always @(posedge clk or posedge rst) begin
     if (rst) begin
-        // Reset the memory on reset
-        for (int i = 0; i < 128; i = i + 1) begin
+        // Reset the memory on reset     
+        for (i = 0; i < 128; i = i+1) begin
             ram[i] <= 7'b0;
-        end
+       end
     end else begin
         // Write operation
         if (w_en) begin
@@ -115,4 +114,5 @@ always @(posedge clk or posedge rst) begin
 end
 
 endmodule
+
 
