@@ -1,6 +1,6 @@
-module lvt_testbench();
+module tb_lvt_bram();
 
-// Parameters
+    // Parameters
     parameter CLK_PERIOD = 10; // Clock period in time units
     
     // Signals
@@ -10,6 +10,7 @@ module lvt_testbench();
     reg [4:0] wr0_data, wr1_data;
     reg wr0_en, wr1_en, rd0_en;
     wire [6:0] rd0_data;
+    reg [5:0] test_cases_passed;
     
     // Instantiate the DUT
     lvt_bram DUT (
@@ -41,6 +42,7 @@ module lvt_testbench();
         wr1_en = 0;
         rd0_addr = 0;
         rd0_en = 0;
+        test_cases_passed = 0;
         
         // Wait for a few clock cycles after reset
         #20;
@@ -66,6 +68,10 @@ module lvt_testbench();
         #20;
         rd0_en = 0;
         
+        // Check expected vs actual results for test case 1
+        if (rd0_data === 5)
+            test_cases_passed = test_cases_passed + 1;
+        
         // Test case 2: Write data to wr0_addr, wr1_addr and read from rd0_addr with different addresses
         wr0_addr = 30;
         wr0_data = 15;
@@ -84,11 +90,19 @@ module lvt_testbench();
         #20;
         rd0_en = 0;
         
+        // Check expected vs actual results for test case 2
+        if (rd0_data === 15)
+            test_cases_passed = test_cases_passed + 1;
+        
         // Test case 3: Only read from rd0_addr without any prior write operations
         rd0_addr = 5;
         rd0_en = 1;
         #20;
         rd0_en = 0;
+        
+        // Check expected vs actual results for test case 3 (should be 0, as no write operations were performed)
+        if (rd0_data === 0)
+            test_cases_passed = test_cases_passed + 1;
         
         // Test case 4: Write to wr0_addr and wr1_addr, then read from rd0_addr with a different address
         wr0_addr = 50;
@@ -107,7 +121,11 @@ module lvt_testbench();
         rd0_en = 1;
         #20;
         rd0_en = 0;
-
+        
+        // Check expected vs actual results for test case 4
+        if (rd0_data === 25)
+            test_cases_passed = test_cases_passed + 1;
+        
         // Test case 5: Write to wr0_addr, wr1_addr, and rd0_addr, then read from rd0_addr
         wr0_addr = 70;
         wr0_data = 35;
@@ -125,6 +143,10 @@ module lvt_testbench();
         rd0_en = 1;
         #20;
         rd0_en = 0;
+
+        // Check expected vs actual results for test case 5
+        if (rd0_data === 35)
+            test_cases_passed = test_cases_passed + 1;
 
         // Test case 6: Write to wr0_addr, wr1_addr, and rd0_addr, then read from rd0_addr with different address
         wr0_addr = 90;
@@ -144,8 +166,16 @@ module lvt_testbench();
         #20;
         rd0_en = 0;
 
+        // Check expected vs actual results for test case 6
+        if (rd0_data === 45)
+            test_cases_passed = test_cases_passed + 1;
+        
+        // Display test results
+        $display("Test cases passed: %d", test_cases_passed);
+        
         // End of simulation
         #10;
         $finish;
     end
-
+    
+endmodule
