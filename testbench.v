@@ -1,6 +1,4 @@
-Of course! Let's expand the testbench to cover more scenarios:
 
-```verilog
 module tb_lvt_bram();
 
     // Parameters
@@ -153,10 +151,3 @@ module tb_lvt_bram();
     end
     
 endmodule
-```
-
-In this version, I've added two more test cases:
-5. Write data to `wr0_addr`, `wr1_addr`, and `rd0_addr`, then read from `rd0_addr`.
-6. Write data to `wr0_addr`, `wr1_addr`, and `rd0_addr`, then read from `rd0_addr` with a different address.
-
-These additional scenarios help validate the design under various conditions. Feel free to modify or expand the testbench further according to your specific requirements.
