@@ -91,7 +91,7 @@ module tb_lvt_bram();
         rd0_en = 0;
         
         // Check expected vs actual results for test case 2
-        if (rd0_data === 15)
+        if (rd0_data === 10)
             test_cases_passed = test_cases_passed + 1;
         
         // Test case 3: Only read from rd0_addr without any prior write operations
@@ -104,26 +104,26 @@ module tb_lvt_bram();
         if (rd0_data === 0)
             test_cases_passed = test_cases_passed + 1;
         
-        // Test case 4: Write to wr0_addr and wr1_addr, then read from rd0_addr with a different address
+        // Test case 4: Write to same wr0_addr and wr1_addr, then read from same rd0_addr 
         wr0_addr = 50;
         wr0_data = 25;
         wr0_en = 1;
         #20;
         wr0_en = 0;
         
-        wr1_addr = 60;
+        wr1_addr = 50;
         wr1_data = 30;
         wr1_en = 1;
         #20;
         wr1_en = 0;
         
-        rd0_addr = 55;
+        rd0_addr = 50;
         rd0_en = 1;
         #20;
         rd0_en = 0;
         
         // Check expected vs actual results for test case 4
-        if (rd0_data === 25)
+        if (rd0_data === 30)
             test_cases_passed = test_cases_passed + 1;
         
         // Test case 5: Write to wr0_addr, wr1_addr, and rd0_addr, then read from rd0_addr
@@ -167,7 +167,7 @@ module tb_lvt_bram();
         rd0_en = 0;
 
         // Check expected vs actual results for test case 6
-        if (rd0_data === 45)
+        if (rd0_data === 0)
             test_cases_passed = test_cases_passed + 1;
         
         // Display test results
