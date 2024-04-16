@@ -69,8 +69,9 @@ module tb_lvt_bram();
         rd0_en = 0;
         
         // Check expected vs actual results for test case 1
-        if (rd0_data === 5)
+        if (rd0_data === 5){
             test_cases_passed = test_cases_passed + 1;
+            $display("Test case 1 passed");}
         
         // Test case 2: Write data to wr0_addr, wr1_addr and read from rd0_addr with different addresses
         wr0_addr = 30;
@@ -91,8 +92,9 @@ module tb_lvt_bram();
         rd0_en = 0;
         
         // Check expected vs actual results for test case 2
-        if (rd0_data === 10)
+        if (rd0_data === 10){
             test_cases_passed = test_cases_passed + 1;
+            $display("Test case 2 passed");}
         
         // Test case 3: Only read from rd0_addr without any prior write operations
         rd0_addr = 5;
@@ -101,8 +103,9 @@ module tb_lvt_bram();
         rd0_en = 0;
         
         // Check expected vs actual results for test case 3 (should be 0, as no write operations were performed)
-        if (rd0_data === 0)
+        if (rd0_data === 0){
             test_cases_passed = test_cases_passed + 1;
+            $display("Test case 3 passed");}
         
         // Test case 4: Write to same wr0_addr and wr1_addr, then read from same rd0_addr 
         wr0_addr = 50;
@@ -123,8 +126,9 @@ module tb_lvt_bram();
         rd0_en = 0;
         
         // Check expected vs actual results for test case 4
-        if (rd0_data === 30)
+        if (rd0_data === 30){
             test_cases_passed = test_cases_passed + 1;
+            $display("Test case 4 passed");}
         
         // Test case 5: Write to wr0_addr, wr1_addr, and rd0_addr, then read from rd0_addr
         wr0_addr = 70;
@@ -145,8 +149,9 @@ module tb_lvt_bram();
         rd0_en = 0;
 
         // Check expected vs actual results for test case 5
-        if (rd0_data === 35)
+        if (rd0_data === 35){
             test_cases_passed = test_cases_passed + 1;
+            $display("Test case 5 passed");}
 
         // Test case 6: Write to wr0_addr, wr1_addr, and rd0_addr, then read from rd0_addr with different address
         wr0_addr = 90;
@@ -167,8 +172,9 @@ module tb_lvt_bram();
         rd0_en = 0;
 
         // Check expected vs actual results for test case 6
-        if (rd0_data === 0)
+        if (rd0_data === 0){
             test_cases_passed = test_cases_passed + 1;
+            $display("Test case 6 passed");}
         
         // Display test results
         $display("Test cases passed: %d", test_cases_passed);
