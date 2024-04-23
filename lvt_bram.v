@@ -1,8 +1,8 @@
 module lvt_bram (
     input wire [6:0] wr0_addr, wr1_addr,
-    input wire [4:0] wr0_data, wr1_data,
+    input wire [31:0] wr0_data, wr1_data,
     input wire [6:0] rd0_addr,
-    output wire [6:0] rd0_data,
+    output wire [31:0] rd0_data,
     input wire clk,
     input wire rst, // Reset input
     input wire wr0_en,
@@ -29,11 +29,11 @@ LiveValueTable L1 (
 );
 
 // Instantiating BRAM modules
-BRAM B0 (.clk(clk), .rst(rst), .w_en(wr0_en), .addr(wr0_addr), .data_in(wr0_data), .data_out(temp_rd0));
-BRAM B1 (.clk(clk), .rst(rst), .w_en(wr1_en), .addr(wr1_addr), .data_in(wr1_data), .data_out(temp_rd1));
+BRAM B0 (.clk(clk), .rst(rst), .w_en(wr0_en), .rd_en(rd0_en),.wr_addr(wr0_addr),.rd_addr(rd0_addr), .data_in(wr0_data), .data_out(temp_rd0));
+BRAM B1 (.clk(clk), .rst(rst), .w_en(wr1_en), .rd_en(rd0_en),.wr_addr(wr1_addr), .rd_addr(rd0_addr), .data_in(wr1_data), .data_out(temp_rd1));
 
 // Assign output data based on LVT selection
-assign rd0_data = lvt_out ? temp_rd0 : temp_rd1;
+assign rd0_data = lvt_out ? temp_rd1 : temp_rd0;
 
 endmodule
 
@@ -88,16 +88,18 @@ module BRAM (
     input wire clk,
     input wire rst,
     input wire w_en,
-    input wire [6:0] addr,
-    input wire [4:0] data_in,
-    output reg [6:0] data_out
+    input wire rd_en,
+    input wire [6:0] wr_addr,
+    input wire [6:0] rd_addr,
+    input wire [31:0] data_in,
+    output reg [31:0] data_out
 );
 
 // Internal memory
 reg [6:0] ram [0:127];
 integer i;
 // Sequential block for BRAM operations
-always @(posedge clk or posedge rst) begin
+always @(posedge clk) begin
     if (rst) begin
         // Reset the memory on reset     
         for (i = 0; i < 128; i = i+1) begin
@@ -106,13 +108,15 @@ always @(posedge clk or posedge rst) begin
     end else begin
         // Write operation
         if (w_en) begin
-            ram[addr] <= data_in;
-        end
+            ram[wr_addr] <= data_in;
+        end 
+        else if(rd_en) begin
         // Read operation
-        data_out <= ram[addr];
+        data_out <= ram[rd_addr];
+        end
+        else begin
+            data_out<=32'b0;
+         end
     end
 end
-
 endmodule
-
-
