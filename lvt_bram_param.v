@@ -19,10 +19,11 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-parameter ADDR_WIDTH = 7; // Address width for BRAM and LVT
-parameter DATA_WIDTH = 32; // Data width for BRAM
 
-module lvt_bram (
+module lvt_bram #(
+    parameter ADDR_WIDTH = 7,
+    parameter DATA_WIDTH = 32
+)(
     input wire [ADDR_WIDTH-1:0] wr0_addr, wr1_addr,
     input wire [DATA_WIDTH-1:0] wr0_data, wr1_data,
     input wire [ADDR_WIDTH-1:0] rd0_addr,
