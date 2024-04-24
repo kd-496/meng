@@ -20,7 +20,10 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module tb_lvt_bram();
+module tb_lvt_bram#(
+    parameter ADDR_WIDTH = 14,
+    parameter DATA_WIDTH = 32
+);
 
     // Parameters
    // parameter CLK_PERIOD = 10; // Clock period in time units
