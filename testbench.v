@@ -1,15 +1,42 @@
-module tb_lvt_bram();
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 04/15/2024 05:48:33 PM
+// Design Name: 
+// Module Name: lvt_testbench
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module tb_lvt_bram#(
+    parameter ADDR_WIDTH = 14,
+    parameter DATA_WIDTH = 32
+);
 
     // Parameters
-    parameter CLK_PERIOD = 10; // Clock period in time units
+   // parameter CLK_PERIOD = 10; // Clock period in time units
     
     // Signals
     reg clk;
     reg rst;
-    reg [6:0] wr0_addr, wr1_addr, rd0_addr;
-    reg [31:0] wr0_data, wr1_data;
-    reg wr0_en, wr1_en, rd0_en;
-    wire [31:0] rd0_data;
+    reg [ADDR_WIDTH-1:0] wr0_addr, wr1_addr,rd0_addr;
+    reg [DATA_WIDTH-1:0] wr0_data, wr1_data;
+    reg wr0_en; 
+    reg wr1_en;
+    reg rd0_en;
+    wire [DATA_WIDTH-1:0] rd0_data;
     reg [5:0] test_cases_passed;
     
     // Instantiate the DUT
