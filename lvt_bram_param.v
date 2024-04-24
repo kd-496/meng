@@ -21,7 +21,7 @@
 
 
 module lvt_bram #(
-    parameter ADDR_WIDTH = 7,
+    parameter ADDR_WIDTH = 14,
     parameter DATA_WIDTH = 32
 )(
     input wire [ADDR_WIDTH-1:0] wr0_addr, wr1_addr,
@@ -140,4 +140,3 @@ always @(posedge clk) begin
          data_out <= ram[rd_addr];
          end
     end
-end
